@@ -8,8 +8,8 @@ export default function Header() {
     <Card>
       <CardContent className="flex items-center justify-between p-5 ">
         <Image src={"/Logo.svg"} alt="Logo barbearia" height={22} width={120} />
-        <Button variant={"outline"} size={"icon"} className="size-8">
-          <MenuIcon size={16} />
+        <Button variant={"outline"} size={"icon"} className="size-fit">
+          <MenuIcon size={18} />
         </Button>
       </CardContent>
     </Card>
