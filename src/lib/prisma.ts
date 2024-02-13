@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-var */
-
-// LIMITANDO CONEXÕES COM BANCO DURANTE MODO DEV
-
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { PrismaClient } from "@prisma/client";
+
 declare global {
   var cachedPrisma: PrismaClient;
 }
 
 let prisma: PrismaClient;
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
   if (!global.cachedPrisma) {
@@ -18,4 +15,5 @@ if (process.env.NODE_ENV !== "production") {
   }
   prisma = global.cachedPrisma;
 }
+
 export const db = prisma;
