@@ -9,6 +9,9 @@
     "lint": "next lint",
     "commit": "cz"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^5.9.1",
     "next": "^14.1.0",
@@ -35,6 +38,7 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "prisma": "^5.9.1",
     "tailwindcss": "latest",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "config": {
