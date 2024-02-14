@@ -49,3 +49,6 @@
     @apply flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden;
   }
 }
+.text-nowrap {
+  white-space: nowrap;
+}

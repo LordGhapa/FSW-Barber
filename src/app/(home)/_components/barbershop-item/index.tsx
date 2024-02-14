@@ -30,16 +30,10 @@ export default function BarbershopItem({ barbershop }: BarbershopItemProps) {
           />
         </div>
         <div className="px-3 pb-3">
-          <h2
-            style={{ whiteSpace: "nowrap" }}
-            className="text-nowrap mt-2 overflow-hidden  text-ellipsis font-bold"
-          >
+          <h2 className="text-nowrap mt-2 overflow-hidden  text-ellipsis font-bold">
             {barbershop.name}
           </h2>
-          <p
-            style={{ whiteSpace: "nowrap" }}
-            className="text-nowrap  overflow-hidden text-ellipsis text-sm text-gray-400"
-          >
+          <p className="text-nowrap  overflow-hidden text-ellipsis text-sm text-gray-400">
             {barbershop.address}
           </p>
           <Button className="mt-3 w-full" variant={"secondary"}>
