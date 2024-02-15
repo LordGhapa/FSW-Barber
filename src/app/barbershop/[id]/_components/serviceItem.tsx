@@ -1,12 +1,27 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Service } from "@prisma/client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
-
 interface ServiceItemProps {
   service: Service;
+  isAuthenticaded: boolean;
 }
-export default function ServiceItem({ service }: ServiceItemProps) {
+
+export default function ServiceItem({
+  service,
+  isAuthenticaded,
+}: ServiceItemProps) {
+  const handleBookingClick = async () => {
+    if (!isAuthenticaded) {
+      await signIn("google");
+    }
+
+    // TODO: abrir modal de agendamento
+  };
+
   return (
     <Card>
       <CardContent className="p-3">
@@ -32,7 +47,7 @@ export default function ServiceItem({ service }: ServiceItemProps) {
                   currency: "BRL",
                 }).format(Number(service.price))}
               </p>
-              <Button variant={"secondary"} className="">
+              <Button variant={"secondary"} onClick={handleBookingClick}>
                 Reservar
               </Button>
             </div>

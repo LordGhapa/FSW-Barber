@@ -14,9 +14,9 @@ interface BarbershopInfoProps {
 }
 
 export default function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
-  const Router = useRouter();
+  const router = useRouter();
   const handleBackClick = () => {
-    Router.back();
+    router.replace("/");
   };
   return (
     <div>
