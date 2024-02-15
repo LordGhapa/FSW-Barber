@@ -1,6 +1,7 @@
 import { db } from "@/lib/prisma";
 
-import BarbershopInfo from "./_components/barbershop-infor";
+import BarbershopInfo from "./_components/barbershop-info";
+import ServiceItem from "./_components/serviceItem";
 
 interface BarbershopDetailsPageProps {
   params: {
@@ -19,6 +20,9 @@ export default async function BarbershopDetailsPage({
     where: {
       id: params.id,
     },
+    include: {
+      services: true,
+    },
   });
   if (barbershop == null) {
     // TODO: redireciona para homepage
@@ -28,6 +32,11 @@ export default async function BarbershopDetailsPage({
   return (
     <>
       <BarbershopInfo barbershop={barbershop} />
+      <div className="flex flex-col gap-4 px-5  py-6">
+        {barbershop.services.map((service) => (
+          <ServiceItem service={service} key={service.id} />
+        ))}
+      </div>
     </>
   );
 }
