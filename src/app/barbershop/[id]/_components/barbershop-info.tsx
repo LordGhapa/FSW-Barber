@@ -18,6 +18,7 @@ export default function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
   const handleBackClick = () => {
     router.replace("/");
   };
+  // TODO: fix error hydratation
   return (
     <div>
       <div className="relative h-[250px] w-full ">
