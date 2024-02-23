@@ -82,11 +82,11 @@ export default function ServiceItem({
   useEffect(() => {
     if (!date) return;
     const refreshAvailableHours = async () => {
-      const _dayBookings = await getDayBookings(date);
+      const _dayBookings = await getDayBookings(barbershop.id, date);
       setDayBooking(_dayBookings);
     };
     void refreshAvailableHours();
-  }, [date]);
+  }, [date, barbershop.id]);
 
   const handleBookingSubmit = async () => {
     setLoadingSubmit(true);
@@ -191,11 +191,11 @@ export default function ServiceItem({
                       onSelect={handleDateClick}
                     />{" "}
                   </div>
-                  {/* {mostra lista de hoararios se data tiver selecionada } */}
+
 
                   {date && (
                     <div className="scroll flex gap-3 overflow-x-auto border-t border-solid border-secondary px-5 py-6">
-                      {timeList.map((time) => (
+                      {timeList?.map((time) => (
                         <Button
                           onClick={() => {
                             handleHourClick(time);
