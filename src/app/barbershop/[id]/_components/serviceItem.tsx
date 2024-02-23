@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { type Barbershop, type Service } from "@prisma/client";
+import { type Booking, type Barbershop, type Service } from "@prisma/client";
 import { ptBR } from "date-fns/locale";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -25,6 +25,7 @@ import { setHours, setMinutes } from "date-fns";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getDayBookings } from "../_actions/get-day-booking";
 interface ServiceItemProps {
   service: Service;
   isAuthenticaded: boolean;
@@ -48,12 +49,26 @@ export default function ServiceItem({
   const [hour, setHour] = useState<string | undefined>("");
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
+  const [dayBooking, setDayBooking] = useState<Booking[]>([]);
 
-const router=useRouter()
+  const router = useRouter();
 
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : [];
-  }, [date]);
+    if (!date) return;
+    return generateDayTimeList(date).filter((time) => {
+      const timeHour = Number(time.split(":")[0]);
+      const timeMinutes = Number(time.split(":")[1]);
+
+      const bookings = dayBooking.find((bookings) => {
+        const bookingHour = bookings.date.getHours();
+        const bookingMinutes = bookings.date.getMinutes();
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes;
+      });
+      if (!bookings) return true;
+      return false;
+    });
+  }, [date, dayBooking]);
 
   const handleHourClick = (time: string) => {
     setHour(time);
@@ -63,6 +78,15 @@ const router=useRouter()
     setDate(date);
     setHour(undefined);
   };
+
+  useEffect(() => {
+    if (!date) return;
+    const refreshAvailableHours = async () => {
+      const _dayBookings = await getDayBookings(date);
+      setDayBooking(_dayBookings);
+    };
+    void refreshAvailableHours();
+  }, [date]);
 
   const handleBookingSubmit = async () => {
     setLoadingSubmit(true);
@@ -87,20 +111,18 @@ const router=useRouter()
         action: {
           label: "Visualizar",
           onClick: () => {
-            router.push("/bookings")
+            router.push("/bookings");
           },
         },
       });
-       setHour(undefined);
-       setDate(undefined);
+      setHour(undefined);
+      setDate(undefined);
     } catch (error) {
       console.error(error);
     } finally {
       setLoadingSubmit(false);
     }
   };
-
-
 
   return (
     <Card>
