@@ -159,39 +159,27 @@ export default function ServiceItem({
                   <SheetHeader className="border-b border-solid border-secondary px-5 py-6 text-left">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
-                  <div className="py-6">
+                  <div className=" py-6">
                     <Calendar
-                      styles={{
-                        head_cell: {
-                          width: "100%",
-                          textTransform: "capitalize",
-                        },
-                        cell: {
-                          width: "100%",
-                        },
-                        button: {
-                          width: "100%",
-                        },
-                        nav_button_previous: {
-                          width: "32px",
-                          height: "32px",
-                        },
-                        nav_button_next: {
-                          width: "32px",
-                          height: "32px",
-                        },
-                        caption: {
-                          textTransform: "capitalize",
-                        },
-                      }}
                       mode="single"
                       fromDate={new Date(Date.now() + 1000 * 60 * 60 * 24)}
                       locale={ptBR}
                       selected={date}
                       onSelect={handleDateClick}
-                    />{" "}
+                      styles={{
+                        head_cell: {
+                          width: "100%",
+                          textTransform: "capitalize",
+                        },
+                        cell: { width: "100%" },
+                        button: { width: "100%" },
+                        nav_button_previous: { width: "32px", height: "32px" },
+                        nav_button_next: { width: "32px", height: "32px" },
+                        caption: { textTransform: "capitalize" },
+                        month: { width: "100%" },
+                      }}
+                    />
                   </div>
-
 
                   {date && (
                     <div className="scroll flex gap-3 overflow-x-auto border-t border-solid border-secondary px-5 py-6">

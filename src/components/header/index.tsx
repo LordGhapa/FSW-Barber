@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-"use client";
+// "use client";
 import Image from "next/image";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
@@ -17,7 +17,7 @@ export default function Header() {
         <Image src={"/Logo.svg"} alt="Logo barbearia" height={22} width={120} />
 
         <Sheet>
-          <SheetTrigger>
+          <SheetTrigger asChild>
             <Button variant={"outline"} size={"icon"}>
               <MenuIcon size={18} />
             </Button>
