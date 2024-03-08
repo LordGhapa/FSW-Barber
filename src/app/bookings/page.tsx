@@ -2,7 +2,7 @@ import BookingItem from "@/components/booking-item";
 import Header from "@/components/header";
 import { authOptions } from "@/lib/authOptions";
 import { db } from "@/lib/prisma";
-import { isFuture, isPast } from "date-fns";
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -11,19 +11,33 @@ export default async function BookingsPage() {
   if (!session?.user) {
     return redirect("/");
   }
-  const bookings = await db.booking.findMany({
-    where: {
-      userId: (session.user as any).id,
-    },
-    include: {
-      service: true,
-      barbershop: true,
-    },
-  });
-  const confirmedBookings = bookings.filter((booking) =>
-    isFuture(booking.date),
-  );
-  const finishedBookings = bookings.filter((booking) => isPast(booking.date));
+
+  const [confirmedBookings, finishedBookings] = await Promise.all([
+    db.booking.findMany({
+      where: {
+        userId: (session.user as any).id,
+        date: {
+          gte: new Date(),
+        },
+      },
+      include: {
+        service: true,
+        barbershop: true,
+      },
+    }),
+    db.booking.findMany({
+      where: {
+        userId: (session.user as any).id,
+        date: {
+          lt: new Date(),
+        },
+      },
+      include: {
+        service: true,
+        barbershop: true,
+      },
+    }),
+  ]);
 
   return (
     <>
