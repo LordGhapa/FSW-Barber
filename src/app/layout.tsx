@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} base dark`}>
+      <body className={`${inter.className} base dark mx-auto max-w-2xl`}>
         <AuthProvider>
           {children}
           <Footer />
