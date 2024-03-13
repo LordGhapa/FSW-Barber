@@ -22,6 +22,18 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogTitle,
+} from "../ui/alert-dialog";
+
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
     include: {
@@ -156,18 +168,45 @@ export default function BookingItem({ booking }: BookingItemProps) {
                 Voltar
               </Button>
             </SheetClose>
-            <Button
-              className="w-full"
-              disabled={!isBookingConfirmed || isBookingDeleteLoading}
-              variant={"destructive"}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={handleCancelClick}
-            >
-              {isBookingDeleteLoading && (
-                <Loader2 className="size-4 mr-2 animate-spin" />
-              )}
-              Cancelar Reserva
-            </Button>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  className="w-full"
+                  disabled={!isBookingConfirmed || isBookingDeleteLoading}
+                  variant={"destructive"}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                >
+                  Cancelar Reserva
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="w-[90%]">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Deseja mesmo cancelar essa reserva
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Uma vez cancelada,não será possível reverter essa ação
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="flex-row gap-3">
+                  <AlertDialogCancel className="mt-0 w-full">
+                    Voltar
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="w-full"
+                    disabled={isBookingDeleteLoading}
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick={handleCancelClick}
+                  >
+                    {isBookingDeleteLoading && (
+                      <Loader2 className="size-4 mr-2 animate-spin" />
+                    )}
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </SheetFooter>
         </div>
       </SheetContent>
