@@ -186,7 +186,7 @@ export default function BookingItem({ booking }: BookingItemProps) {
                     Deseja mesmo cancelar essa reserva
                   </AlertDialogTitle>
                   <AlertDialogDescription>
-                    Uma vez cancelada,não será possível reverter essa ação
+                    Uma vez cancelada, não será possível reverter essa ação
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex-row gap-3">
