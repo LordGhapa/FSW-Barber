@@ -143,11 +143,12 @@ export default function ServiceItem({
 
             <div className="mt-3 flex items-center justify-between">
               <p className="text-lg font-bold text-primary">
-                {" "}
                 {Intl.NumberFormat("pt-BR", {
                   style: "currency",
                   currency: "BRL",
-                }).format(Number(service.price))}
+                })
+                  .format(Number(service.price))
+                  .toString()}
               </p>
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
@@ -208,7 +209,9 @@ export default function ServiceItem({
                             {Intl.NumberFormat("pt-BR", {
                               style: "currency",
                               currency: "BRL",
-                            }).format(Number(service.price))}
+                            })
+                              .format(Number(service.price))
+                              .toString()}
                           </h3>
                         </div>
                         {date && (
