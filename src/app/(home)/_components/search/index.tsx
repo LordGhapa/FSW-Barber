@@ -27,11 +27,16 @@ const formSchema = z.object({
     .trim(),
 });
 
-export default function Search() {
+interface SearchProps {
+  defaultValues?: z.infer<typeof formSchema>;
+}
+
+export default function Search({ defaultValues }: SearchProps) {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {

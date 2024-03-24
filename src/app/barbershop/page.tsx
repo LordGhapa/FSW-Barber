@@ -5,7 +5,7 @@ import Search from "../(home)/_components/search";
 
 interface BarbershopsPageProps {
   searchParams: {
-    search?: string;
+    search: string;
   };
 }
 
@@ -25,7 +25,11 @@ export default async function BarbershopsPage({
     <>
       <Header />
       <div className="mt-4">
-        <Search />
+        <Search
+          defaultValues={{
+            search: searchParams.search,
+          }}
+        />
       </div>
       <div className="px-5 py-6">
         <h1 className="text-xs font-bold uppercase text-gray-400">
