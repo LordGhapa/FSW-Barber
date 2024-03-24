@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${inter.className} base dark mx-auto max-w-2xl`}>
         <AuthProvider>
-          {children}
+          <div className="flex-1">{children}</div>
           <Footer />
           <Toaster />
         </AuthProvider>
